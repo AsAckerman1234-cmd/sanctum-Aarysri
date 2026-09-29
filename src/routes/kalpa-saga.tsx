@@ -21,7 +21,7 @@ export const Route = createFileRoute("/kalpa-saga")({
   head: () => ({
     meta: [
       { title: "The Kalpa Saga — Aryan Srivastava" },
-      { name: "description", content: "The Kalpa Saga — a long-form mythological-spiritual epic exploring karma across cycles of creation." },
+      { name: "description", content: "The Kalpa Saga — a long form mythological, spiritual epic exploring karma across cycles of creation." },
       { property: "og:title", content: "The Kalpa Saga — Aryan Srivastava" },
       { property: "og:description", content: "Explore the mythic world of The Kalpa Saga and read three manuscript previews." },
       { property: "og:type", content: "website" },
