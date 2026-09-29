@@ -1,0 +1,341 @@
+/* =====================================================================
+   THE REALM — Golden Water & Golden Mist
+   Scoped to `.realm` (Art & Writing, Novel, Books). Other pages keep
+   the original Crimson / Diamond eclipse theme untouched.
+   ===================================================================== */
+
+@property --r-bg      { syntax: "<color>"; inherits: true; initial-value: #050812; }
+@property --r-bg2     { syntax: "<color>"; inherits: true; initial-value: #0B1830; }
+@property --r-fg      { syntax: "<color>"; inherits: true; initial-value: #F7F3E8; }
+@property --r-muted   { syntax: "<color>"; inherits: true; initial-value: #9fb3cc; }
+@property --r-gold    { syntax: "<color>"; inherits: true; initial-value: #D4AF37; }
+@property --r-bright  { syntax: "<color>"; inherits: true; initial-value: #F4D47C; }
+@property --r-accent2 { syntax: "<color>"; inherits: true; initial-value: #63E6FF; }
+@property --r-surface { syntax: "<color>"; inherits: true; initial-value: rgba(11,28,52,.46); }
+@property --r-border  { syntax: "<color>"; inherits: true; initial-value: rgba(232,200,117,.26); }
+@property --r-hl      { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+/* ---------- Design tokens ---------- */
+.realm.realm-water {
+  --r-bg: #050812; --r-bg2: #0B1830; --r-fg: #F7F3E8; --r-muted: #a3b5cc;
+  --r-gold: #D4AF37; --r-bright: #F4D47C; --r-accent2: #63E6FF;
+  --r-surface: rgba(10, 26, 50, .46); --r-border: rgba(232, 200, 117, .26);
+}
+.realm.realm-mist {
+  --r-bg: #17120A; --r-bg2: #21190C; --r-fg: #FFF8E7; --r-muted: #d0bd90;
+  --r-gold: #C9A85C; --r-bright: #FFE7A6; --r-accent2: #DDBF79;
+  --r-surface: rgba(60, 44, 20, .40); --r-border: rgba(241, 223, 169, .28);
+}
+.realm.realm-water, .realm.realm-mist {
+  transition: --r-bg 1.3s ease, --r-bg2 1.3s ease, --r-fg 1.3s ease, --r-muted 1.3s ease,
+    --r-gold 1.3s ease, --r-bright 1.3s ease, --r-accent2 1.3s ease, --r-surface 1.3s ease, --r-border 1.3s ease;
+  color: var(--r-fg);
+  color-scheme: dark;
+
+  /* map the site's legacy variables onto the realm tokens so existing components adopt the theme */
+  --bg: var(--r-bg); --bg-2: var(--r-bg2); --fg: var(--r-fg); --muted-fg: var(--r-muted);
+  --primary-c: var(--r-gold); --secondary-c: var(--r-accent2); --accent-c: var(--r-bright);
+  --gold: color-mix(in oklab, var(--r-bright) 65%, var(--r-fg));
+  --card-bg: var(--r-surface); --card-border: var(--r-border);
+  --glow: 0 0 34px color-mix(in oklab, var(--r-bright) 22%, transparent), 0 0 90px color-mix(in oklab, var(--r-accent2) 12%, transparent);
+  --background: var(--r-bg); --foreground: var(--r-fg);
+  --card: var(--r-surface); --card-foreground: var(--r-fg);
+  --popover: var(--r-bg2); --popover-foreground: var(--r-fg);
+  --primary: var(--r-gold); --primary-foreground: var(--r-bg);
+  --secondary: rgba(255,255,255,.06); --secondary-foreground: var(--r-fg);
+  --muted: rgba(255,255,255,.05); --muted-foreground: var(--r-muted);
+  --accent: color-mix(in oklab, var(--r-bright) 16%, transparent); --accent-foreground: var(--r-fg);
+  --border: var(--r-border); --input: rgba(255,255,255,.08); --ring: var(--r-bright);
+}
+
+/* ---------- Typography ---------- */
+.realm h1, .realm h2, .realm h3 {
+  font-family: "Cormorant Garamond", "Cinzel", Georgia, serif;
+  font-weight: 500; letter-spacing: .01em;
+}
+.realm h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.1; }
+.realm h3 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.15; }
+.r-title {
+  font-size: clamp(2.9rem, 8.5vw, 6.2rem); line-height: 1.02; padding-bottom: .14em; margin-top: .5rem;
+  filter: drop-shadow(0 0 28px color-mix(in oklab, var(--r-bright) 22%, transparent));
+}
+.r-eyebrow {
+  font-family: var(--font-serif); font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--r-bright); opacity: .85;
+}
+.r-lede {
+  max-width: 40rem; margin: 1.4rem auto 0; font-family: "Cormorant Garamond", serif; font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.6; color: var(--r-muted);
+}
+.realm .gold-text {
+  background-image: linear-gradient(100deg, var(--r-bright) 0%, color-mix(in oklab, var(--r-bright) 55%, var(--r-fg)) 38%, var(--r-fg) 50%, color-mix(in oklab, var(--r-bright) 55%, var(--r-fg)) 62%, var(--r-bright) 100%);
+  background-size: 240% 100%; animation: r-sheen 12s ease-in-out infinite;
+}
+@keyframes r-sheen { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.realm p, .realm .leading-relaxed { line-height: 1.85; }
+
+/* ---------- Layout ---------- */
+.realm-root { position: relative; min-height: 100vh; }
+.r-main { position: relative; z-index: 10; padding: 8rem 1.1rem 5rem; overflow-x: clip; }
+@media (min-width: 640px) { .r-main { padding-inline: 1.5rem; } }
+.r-footer { margin-top: 6rem; text-align: center; font-family: var(--font-serif); font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: var(--r-muted); opacity: .8; }
+.r-frame {
+  position: relative; padding: 8px; border-radius: 32px; border: 1px solid var(--r-border);
+  background: linear-gradient(160deg, color-mix(in oklab, var(--r-bright) 10%, transparent), transparent 45%);
+  box-shadow: 0 50px 90px -40px color-mix(in oklab, var(--r-accent2) 40%, transparent), 0 0 0 1px rgba(255,255,255,.02) inset;
+}
+
+/* ---------- Scroll reveal ---------- */
+.realm-js [data-reveal] { opacity: 0; transform: translateY(26px); filter: blur(8px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.8,.2,1), filter 1.1s ease; }
+.realm-js [data-reveal].in { opacity: 1; transform: none; filter: none; }
+
+/* ---------- Environment ---------- */
+.r-env { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--r-bg); }
+.r-env > *, .r-layer > * { position: absolute; }
+.r-layer { inset: 0; opacity: 0; visibility: hidden; transition: opacity 1.4s ease, visibility 0s 1.4s; }
+.realm-water .r-water, .realm-mist .r-mist { opacity: 1; visibility: visible; transition: opacity 1.4s ease, visibility 0s; }
+.r-vignette { inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.5)); }
+.realm-mist .r-vignette { background: radial-gradient(ellipse at 50% 45%, transparent 60%, rgba(10,6,0,.38)); }
+.r-cursor {
+  left: 0; top: 0; width: 460px; height: 460px; margin: -230px 0 0 -230px; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--r-bright) 13%, transparent), transparent);
+  transform: translate3d(var(--mx, -999px), var(--my, -999px), 0); mix-blend-mode: screen; will-change: transform;
+}
+.r-pulse { inset: 0; background: radial-gradient(circle at 50% 55%, color-mix(in oklab, var(--r-bright) 55%, transparent), transparent 60%); opacity: 0; animation: r-pulse 1.5s ease-out; }
+@keyframes r-pulse { 0% { opacity: 0; transform: scale(.6); } 30% { opacity: .55; } 100% { opacity: 0; transform: scale(1.6); } }
+
+/* sacred geometry */
+.r-geo { left: 50%; top: 30vh; width: min(130vmin, 1100px); aspect-ratio: 1; color: var(--r-bright); opacity: .075;
+  transform: translate(-50%, calc(-50% + var(--r-sy, 0) * -.05px)); }
+.r-geo-2 { left: auto; right: -14vmin; top: auto; bottom: -18vmin; width: 62vmin; opacity: .08; transform: translateY(calc(var(--r-sy, 0) * -.03px)); }
+.r-geo-svg { width: 100%; height: 100%; stroke-width: 1; }
+.r-geo-svg * { vector-effect: non-scaling-stroke; }
+.r-geo-svg.spin { animation: r-spin 150s linear infinite; }
+.r-geo-svg.spin-rev { animation: r-spin 210s linear infinite reverse; }
+@keyframes r-spin { to { transform: rotate(360deg); } }
+
+/* particles */
+.r-particles { inset: 0; }
+.r-particle { position: absolute; border-radius: 50%; background: var(--r-bright); box-shadow: 0 0 10px var(--r-bright); animation: r-rise linear infinite; will-change: transform; }
+.realm-mist .r-particle { animation-name: r-dust; box-shadow: 0 0 14px var(--r-bright); }
+@keyframes r-rise { 0% { transform: translate3d(0,0,0); opacity: 0; } 12% { opacity: 1; } 85% { opacity: .5; } 100% { transform: translate3d(var(--dx), -42vh, 0); opacity: 0; } }
+@keyframes r-dust { 0% { transform: translate3d(0,0,0); opacity: 0; } 20% { opacity: .9; } 60% { transform: translate3d(calc(var(--dx) * .6), -14vh, 0); } 100% { transform: translate3d(var(--dx), -26vh, 0); opacity: 0; } }
+
+/* ----- Golden Water ----- */
+.w-sky { inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 42% at 50% 63%, rgba(99,230,255,.30), transparent 70%),
+    radial-gradient(ellipse 46% 26% at 50% 62%, rgba(244,212,124,.24), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 15% 30%, rgba(24,60,110,.35), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 30%, rgba(24,60,110,.35), transparent 70%),
+    linear-gradient(180deg, #050812 0%, #071426 42%, #0B1830 62%, #050812 100%); }
+.w-stars { left: 0; right: 0; top: 0; height: 58%; z-index: 0; opacity: .7; animation: r-twinkle 10s ease-in-out infinite;
+  background-image:
+    radial-gradient(1px 1px at 8% 14%, #fff, transparent), radial-gradient(1px 1px at 19% 32%, #cfe9ff, transparent),
+    radial-gradient(1.4px 1.4px at 31% 9%, #fff, transparent), radial-gradient(1px 1px at 44% 24%, #F4D47C, transparent),
+    radial-gradient(1px 1px at 57% 12%, #fff, transparent), radial-gradient(1.4px 1.4px at 68% 30%, #cfe9ff, transparent),
+    radial-gradient(1px 1px at 79% 10%, #fff, transparent), radial-gradient(1px 1px at 91% 26%, #F4D47C, transparent),
+    radial-gradient(1px 1px at 25% 44%, #fff, transparent), radial-gradient(1px 1px at 84% 46%, #fff, transparent); }
+@keyframes r-twinkle { 0%,100% { opacity: .45; } 50% { opacity: .85; } }
+.w-beam { left: 50%; top: 0; width: 64vw; height: 66vh; z-index: 1; transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(99,230,255,.26), rgba(99,230,255,.05) 80%, transparent);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%); filter: blur(14px); animation: r-breath 14s ease-in-out infinite; }
+@keyframes r-breath { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+.w-pillars { inset: 0; z-index: 2; }
+.w-pillars span { position: absolute; bottom: 37%; width: 2px;
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--r-bright) 65%, transparent) 55%, #fff2c4);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--r-bright) 55%, transparent); animation: r-pillar 8s ease-in-out infinite alternate; }
+@keyframes r-pillar { from { opacity: .45; } to { opacity: .95; } }
+.w-waves { left: 0; top: 38%; width: 100%; height: 44vh; z-index: 2; opacity: .8; }
+.w-wave-l, .w-wave-r { animation: r-sway 18s ease-in-out infinite alternate; transform-box: fill-box; }
+.w-wave-r { animation-duration: 23s; }
+@keyframes r-sway { from { transform: translateY(-6px); } to { transform: translateY(8px); } }
+.w-stairs, .w-stairs-ref { left: 50%; width: min(1100px, 96vw); transform: translateX(-50%); }
+.w-stairs { bottom: 34%; z-index: 3; filter: drop-shadow(0 0 10px rgba(99,230,255,.45)); }
+.w-stairs-ref { top: 66%; z-index: 1; opacity: .25; transform: translateX(-50%) scaleY(-1);
+  -webkit-mask-image: linear-gradient(to top, #000, transparent 75%); mask-image: linear-gradient(to top, #000, transparent 75%); animation: r-breath 9s ease-in-out infinite; }
+.w-floor { left: 0; right: 0; top: 62%; bottom: 0; z-index: 1; overflow: hidden;
+  background: linear-gradient(180deg, rgba(99,230,255,.12), transparent 26%), linear-gradient(180deg, #071426, #050812 92%); }
+.w-floor > * { position: absolute; }
+.w-grid { left: -40%; right: -40%; top: 0; height: 240%; transform-origin: 50% 0; transform: rotateX(64deg); perspective: 600px;
+  background-image: linear-gradient(rgba(244,212,124,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(244,212,124,.08) 1px, transparent 1px);
+  background-size: 90px 90px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 60%); mask-image: linear-gradient(180deg, #000, transparent 60%); animation: r-grid 42s linear infinite; }
+@keyframes r-grid { from { transform: perspective(600px) rotateX(64deg) translateY(0); } to { transform: perspective(600px) rotateX(64deg) translateY(90px); } }
+.w-glint { left: 50%; top: 0; width: 70%; height: 60%; transform: translateX(-50%); mix-blend-mode: screen;
+  background: radial-gradient(ellipse 45% 60% at 50% 0%, rgba(99,230,255,.35), rgba(244,212,124,.12) 45%, transparent 75%); animation: r-breath 11s ease-in-out infinite; }
+.w-sparks { inset: 0; opacity: .5; animation: r-twinkle 8s ease-in-out infinite;
+  background-image: radial-gradient(circle at 20% 30%, #F4D47C 0 1px, transparent 1.8px), radial-gradient(circle at 70% 60%, #F4D47C 0 1px, transparent 1.8px), radial-gradient(circle at 45% 80%, #fff 0 .8px, transparent 1.6px);
+  background-size: 130px 82px, 91px 57px, 173px 109px; }
+.w-ripple { left: 50%; top: 6%; width: 46vw; height: 6vw; margin-left: -23vw; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--r-bright) 40%, transparent); opacity: 0; animation: r-ripple 9s ease-out infinite; }
+@keyframes r-ripple { 0% { opacity: 0; transform: scale(.35); } 20% { opacity: .5; } 100% { opacity: 0; transform: scale(1.7); } }
+
+/* ----- Golden Mist ----- */
+.m-base { inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 32%, rgba(255,231,166,.17), transparent 68%), linear-gradient(180deg, #21190C, #17120A 68%, #110c05); }
+.m-veil { border-radius: 50%; will-change: transform; animation: r-drift 50s ease-in-out infinite alternate; }
+.m-veil.v1 { left: -22vw; top: 2vh; width: 95vw; height: 72vh; background: radial-gradient(closest-side, rgba(201,168,92,.24), transparent); }
+.m-veil.v2 { right: -28vw; top: 30vh; width: 90vw; height: 70vh; background: radial-gradient(closest-side, rgba(232,211,155,.17), transparent); animation-duration: 64s; animation-delay: -12s; }
+.m-veil.v3 { left: 8vw; bottom: -30vh; width: 100vw; height: 74vh; background: radial-gradient(closest-side, rgba(143,109,53,.30), transparent); animation-duration: 78s; }
+.m-veil.v4 { left: 25vw; top: -12vh; width: 50vw; height: 50vh; background: radial-gradient(closest-side, rgba(255,248,231,.11), transparent); animation-duration: 40s; animation-delay: -6s; }
+@keyframes r-drift { from { transform: translate3d(-3vw, 2vh, 0) scale(1); } to { transform: translate3d(4vw, -3vh, 0) scale(1.08); } }
+.m-shaft { top: -20%; height: 140vh; width: 34vw; transform-origin: 50% 0; animation: r-breath 16s ease-in-out infinite;
+  background: linear-gradient(180deg, rgba(255,231,166,.15), transparent 78%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000, transparent); mask-image: linear-gradient(90deg, transparent, #000, transparent); }
+.m-shaft.s1 { left: 14%; transform: rotate(18deg); }
+.m-shaft.s2 { left: 56%; transform: rotate(-14deg); animation-delay: -8s; opacity: .8; }
+.m-const { width: min(30vw, 340px); opacity: 0; animation: r-const 22s ease-in-out infinite; }
+.m-const.c0 { left: 7%; top: 12%; }
+.m-const.c1 { right: 8%; bottom: 20%; animation-delay: -11s; transform: scaleX(-1); }
+@keyframes r-const { 0%, 100% { opacity: 0; } 35%, 60% { opacity: .55; } }
+
+/* ---------- Glass surfaces ("divine crystal") ---------- */
+.realm .glass {
+  background:
+    radial-gradient(360px circle at var(--px, 50%) var(--py, 0%), color-mix(in oklab, var(--r-bright) calc(var(--r-hl) * 15%), transparent), transparent 62%),
+    linear-gradient(165deg, color-mix(in oklab, var(--r-fg) 7%, transparent), transparent 42%),
+    var(--r-surface);
+  border: 1px solid var(--r-border); border-radius: 18px;
+  backdrop-filter: blur(16px) saturate(130%); -webkit-backdrop-filter: blur(16px) saturate(130%);
+  box-shadow: 0 26px 60px rgba(0,0,0,.42), inset 0 1px 0 color-mix(in oklab, var(--r-bright) 24%, transparent), inset 0 -1px 0 rgba(0,0,0,.25);
+  transition: transform .7s cubic-bezier(.2,.8,.2,1), box-shadow .7s, border-color .7s, --r-hl .7s ease;
+}
+.realm .glass:hover { --r-hl: 1; border-color: color-mix(in oklab, var(--r-bright) 55%, transparent); }
+.realm .glass-hover:hover { transform: translateY(-3px) scale(1.008); box-shadow: 0 34px 70px rgba(0,0,0,.5), var(--glow), inset 0 1px 0 color-mix(in oklab, var(--r-bright) 30%, transparent); }
+.r-card { padding: clamp(1.6rem, 3vw, 2.4rem); }
+
+/* ---------- Buttons ---------- */
+.realm .btn-mystic {
+  background: color-mix(in oklab, var(--r-bg) 55%, transparent); border: 1px solid var(--r-border);
+  color: var(--r-fg); font-family: var(--font-serif); letter-spacing: .2em; font-size: .7rem; padding: .85rem 1.7rem;
+  backdrop-filter: blur(10px); transition: border-color .5s, box-shadow .5s, transform .3s;
+}
+.realm .btn-mystic::before {
+  background: linear-gradient(105deg, transparent 30%, color-mix(in oklab, var(--r-bright) 42%, transparent) 50%, transparent 70%);
+  opacity: 1; transform: translateX(-125%); transition: transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.realm .btn-mystic:hover::before { opacity: 1; transform: translateX(125%); }
+.realm .btn-mystic:hover { border-color: var(--r-bright); box-shadow: var(--glow); }
+.realm .btn-mystic:active { animation: r-energy .7s ease-out; }
+@keyframes r-energy { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--r-bright) 55%, transparent); } 100% { box-shadow: 0 0 0 16px transparent; } }
+.realm .btn-mystic:focus-visible, .r-switch:focus-visible, .r-link:focus-visible { outline: 2px solid var(--r-bright); outline-offset: 3px; }
+
+.realm .saga-preview-button {
+  border-color: color-mix(in oklab, var(--r-bright) 60%, transparent); color: var(--r-fg);
+  font-size: .78rem; letter-spacing: .2em; text-shadow: 0 0 14px color-mix(in oklab, var(--r-bright) 55%, transparent);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--r-bg2) 85%, var(--r-gold)), color-mix(in oklab, var(--r-bg2) 55%, var(--r-gold)) 55%, color-mix(in oklab, var(--r-bg2) 30%, var(--r-bright)));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--r-gold) 45%, transparent), 0 0 28px color-mix(in oklab, var(--r-bright) 28%, transparent), inset 0 1px 0 rgba(255,255,255,.25);
+  animation: r-glowpulse 4.5s ease-in-out infinite;
+}
+.realm .saga-preview-button::before { background: linear-gradient(105deg, transparent 25%, color-mix(in oklab, var(--r-bright) 45%, transparent) 50%, transparent 75%); }
+.realm .saga-preview-button:hover { border-color: var(--r-bright); }
+.realm .saga-preview-button svg { filter: drop-shadow(0 0 6px color-mix(in oklab, var(--r-bright) 80%, transparent)); }
+@keyframes r-glowpulse { 0%,100% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--r-gold) 45%, transparent), 0 0 22px color-mix(in oklab, var(--r-bright) 22%, transparent), inset 0 1px 0 rgba(255,255,255,.25); } 50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--r-gold) 55%, transparent), 0 0 42px color-mix(in oklab, var(--r-bright) 38%, transparent), inset 0 1px 0 rgba(255,255,255,.3); } }
+
+/* divider: line with a gap and a small star in the centre */
+.realm .divider-om { height: 14px; opacity: .8; background: linear-gradient(90deg, transparent, var(--r-bright) 30%, transparent 47%, transparent 53%, var(--r-bright) 70%, transparent) center / 100% 1px no-repeat; }
+.realm .divider-om::after { content: "✦"; top: -2px; background: none; padding: 0; font-size: 14px; color: var(--r-bright); text-shadow: 0 0 12px var(--r-bright); }
+.realm .lightbox { background: color-mix(in oklab, var(--r-bg) 88%, transparent); }
+.realm .slide-stage::after { background: linear-gradient(to bottom, transparent 40%, color-mix(in oklab, var(--r-bg) 80%, transparent)); }
+.r-seal { position: absolute; right: -3rem; top: -3rem; width: 15rem; color: var(--r-bright); opacity: .07; pointer-events: none; }
+
+/* ---------- Floating navigation ---------- */
+.r-nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: min(1120px, 94%); z-index: 40; }
+.r-nav-bar {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem .6rem .5rem 1.1rem; border-radius: 999px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--r-fg) 7%, transparent), transparent), color-mix(in oklab, var(--r-bg) 58%, transparent);
+  border: 1px solid var(--r-border); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 18px 50px rgba(0,0,0,.35), inset 0 1px 0 color-mix(in oklab, var(--r-bright) 22%, transparent);
+}
+.r-nav-bar::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: -14px; height: 12px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in oklab, var(--r-bright) 22%, transparent), transparent); opacity: .7; }
+.r-brand { display: flex; align-items: center; gap: .65rem; font-family: var(--font-serif); font-size: .78rem; letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; }
+.r-brand-seal { width: 26px; height: 26px; color: var(--r-bright); flex: none; stroke-width: 1.2; }
+.r-links { display: none; align-items: center; gap: 1.5rem; }
+.r-link { position: relative; font-family: var(--font-serif); font-size: .66rem; letter-spacing: .24em; text-transform: uppercase; color: color-mix(in oklab, var(--r-fg) 70%, transparent); padding: .6rem .1rem; transition: color .4s; white-space: nowrap; }
+.r-link::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 0; height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, var(--r-bright), transparent); box-shadow: 0 0 10px var(--r-bright); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.r-link:hover, .r-link.is-active { color: var(--r-bright); }
+.r-link:hover::after, .r-link.is-active::after { width: 100%; }
+.r-nav-end { display: flex; align-items: center; gap: .5rem; }
+.r-burger { display: grid; gap: 5px; width: 40px; height: 40px; place-content: center; border-radius: 50%; border: 1px solid var(--r-border); }
+.r-burger i { display: block; width: 16px; height: 1px; background: var(--r-bright); }
+.r-menu { margin-top: .6rem; padding: 1rem 1.4rem; display: grid; gap: .2rem; }
+@media (min-width: 960px) { .r-links { display: flex; } .r-burger, .r-menu { display: none; } }
+@media (max-width: 420px) { .r-brand span { display: none; } }
+
+/* ---------- Theme switcher (celestial orb) ---------- */
+.r-switch { position: relative; display: flex; align-items: center; gap: .6rem; height: 42px; padding: 0 1rem 0 .45rem; border-radius: 999px; border: 1px solid var(--r-border);
+  background: color-mix(in oklab, var(--r-bg) 45%, transparent); color: var(--r-fg); cursor: pointer; transition: border-color .5s, box-shadow .5s, transform .4s; }
+.r-switch:hover { border-color: var(--r-bright); box-shadow: var(--glow); transform: translateY(-1px); }
+.r-switch-label { font-family: var(--font-serif); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; white-space: nowrap; }
+.r-switch::after { content: attr(data-tip); position: absolute; top: calc(100% + 12px); right: 0; padding: .4rem .8rem; border-radius: 10px; white-space: nowrap; pointer-events: none;
+  font-family: var(--font-serif); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--r-fg);
+  background: color-mix(in oklab, var(--r-bg) 85%, transparent); border: 1px solid var(--r-border); opacity: 0; transform: translateY(-4px); transition: opacity .4s, transform .4s; }
+.r-switch:hover::after, .r-switch:focus-visible::after { opacity: 1; transform: none; }
+.r-orb { position: relative; width: 28px; height: 28px; flex: none; border-radius: 50%; }
+.r-orb span { position: absolute; inset: 0; border-radius: 50%; transition: opacity 1s ease; }
+.o-w { background: radial-gradient(circle at 50% 72%, #63E6FF 0, #1a4a78 42%, #071426 100%); box-shadow: 0 0 14px rgba(99,230,255,.5), inset 0 0 6px rgba(255,255,255,.25); }
+.o-m { background: radial-gradient(circle at 38% 32%, #FFF8E7, #F1DFA9 34%, #C9A85C 68%, #8F6D35); box-shadow: 0 0 14px rgba(255,231,166,.55), inset 0 0 6px rgba(255,255,255,.4); }
+.realm-water .o-m, .realm-mist .o-w { opacity: 0; }
+.o-ring { inset: -5px !important; border: 1px solid color-mix(in oklab, var(--r-bright) 65%, transparent); border-top-color: transparent !important; animation: r-spin 16s linear infinite; }
+@media (max-width: 560px) { .r-switch-label { display: none; } .r-switch { padding: 0 .45rem; } }
+
+/* ---------- Mobile / performance / accessibility ---------- */
+@media (max-width: 720px) {
+  .realm .glass { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .r-particle:nth-child(n+11), .w-pillars span:nth-child(n+5), .w-wave-r, .w-grid, .m-veil.v4, .m-shaft.s2, .r-cursor { display: none; }
+  .w-beam { filter: none; }
+  .r-geo { top: 24vh; }
+  .r-main { padding-top: 6.5rem; }
+}
+@media (hover: none), (pointer: coarse) { .r-cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .realm *, .realm *::before, .realm *::after { animation: none !important; transition-duration: .01ms !important; }
+  .r-cursor, .r-pulse { display: none; }
+  .m-const { opacity: .4; }
+}
+
+
+/* =====================================================================
+   PAGE TRANSITIONS — the mist that parts to open a page
+   ===================================================================== */
+html.realm { scroll-behavior: smooth; }
+
+.r-curtain { position: fixed; inset: 0; z-index: 120; overflow: hidden; pointer-events: none; opacity: 1; visibility: visible;
+  transition: opacity 1.7s cubic-bezier(.4,0,.2,1) .35s, visibility 0s 2.1s; }
+.r-curtain.open { opacity: 0; visibility: hidden; }
+.r-curtain.closing { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .6s ease, visibility 0s; }
+.r-curtain .cv { position: absolute; will-change: transform, opacity;
+  transition: transform 2.4s cubic-bezier(.2,.7,.2,1), opacity 1.6s ease .1s; }
+.cv-base { inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 45%, color-mix(in oklab, var(--r-bright) 20%, var(--r-bg2)), var(--r-bg) 78%); }
+.cv-l, .cv-r, .cv-b { border-radius: 50%; }
+.cv-l { left: -30vw; top: -10vh; width: 95vw; height: 100vh; background: radial-gradient(closest-side, color-mix(in oklab, var(--r-gold) 55%, transparent), transparent); }
+.cv-r { right: -30vw; top: 10vh; width: 95vw; height: 100vh; background: radial-gradient(closest-side, color-mix(in oklab, var(--r-bright) 42%, transparent), transparent); }
+.cv-b { left: 10vw; bottom: -45vh; width: 90vw; height: 80vh; background: radial-gradient(closest-side, color-mix(in oklab, var(--r-fg) 24%, transparent), transparent); }
+.cv-core { left: 50%; top: 45%; width: 46vmax; height: 46vmax; margin: -23vmax 0 0 -23vmax; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--r-bright) 38%, transparent), transparent); }
+.cv-seal { left: 50%; top: 45%; width: 86px; height: 86px; margin: -43px 0 0 -43px; color: var(--r-bright); filter: drop-shadow(0 0 14px var(--r-bright)); }
+.cv-seal .r-geo-svg { stroke-width: 1.3; animation-duration: 26s; }
+/* parting */
+.r-curtain.open .cv-l { transform: translate3d(-42vw, -6vh, 0) scale(1.35); opacity: 0; }
+.r-curtain.open .cv-r { transform: translate3d(42vw, 6vh, 0) scale(1.35); opacity: 0; }
+.r-curtain.open .cv-b { transform: translate3d(0, 38vh, 0) scale(1.25); opacity: 0; }
+.r-curtain.open .cv-core { transform: scale(1.8); opacity: 0; }
+.r-curtain.open .cv-seal { transform: scale(1.7); opacity: 0; transition-duration: 1.4s; }
+.r-curtain.open .cv-base { opacity: 0; transition: opacity 1.5s ease .35s; }
+/* gathering */
+.r-curtain.closing .cv { transform: none; opacity: 1; transition: transform .7s ease, opacity .5s ease; }
+
+/* the page itself arrives out of the mist */
+.realm-root .r-main { animation: r-arrive 1.8s ease .45s both; }
+@keyframes r-arrive { from { opacity: 0; } to { opacity: 1; } }
+.r-nav { animation: r-nav-in 1.5s cubic-bezier(.2,.7,.2,1) .9s both; }
+@keyframes r-nav-in { from { opacity: 0; transform: translate(-50%, -22px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* headline unveils: tracking closes in as it comes into focus */
+.realm-js .r-title { letter-spacing: .07em; transition: letter-spacing 2.4s cubic-bezier(.2,.7,.2,1); }
+.realm-js [data-reveal].in .r-title { letter-spacing: .01em; }
+.realm-js .r-lede { transition: opacity 1.6s ease .4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .r-curtain { display: none; }
+  html.realm { scroll-behavior: auto; }
+}
