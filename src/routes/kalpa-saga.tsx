@@ -52,7 +52,7 @@ And beyond the mist, something has already begun to unfold.
 `,
   },
   {
-    heading: "SAMVAD — Author's commentary",
+    heading: "SAMVAD — Author's commentary.",
     pdf: { title: "Samvad — Author's Commentary", url: samvadPdf },
     body: `[Optional reading] A conversation between two eternal forces of existence- one that remembers everything, one that forgets on purpose. The Samvad sits beside the Saga the way a shadow sits beside a lamp: not the source, not separate, just what the light cannot help but cast.
 
