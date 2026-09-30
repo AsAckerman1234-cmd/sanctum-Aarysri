@@ -21,7 +21,7 @@ export const Route = createFileRoute("/kalpa-saga")({
   head: () => ({
     meta: [
       { title: "The Kalpa Saga — Aryan Srivastava" },
-      { name: "description", content: "The Kalpa Saga — a long form mythological, spiritual epic exploring karma across cycles of creation." },
+      { name: "description", content: "The Kalpa Saga — a long-form mythological-spiritual epic exploring karma across cycles of creation." },
       { property: "og:title", content: "The Kalpa Saga — Aryan Srivastava" },
       { property: "og:description", content: "Explore the mythic world of The Kalpa Saga and read three manuscript previews." },
       { property: "og:type", content: "website" },
@@ -52,7 +52,7 @@ And beyond the mist, something has already begun to unfold.
 `,
   },
   {
-    heading: "SAMVAD — Author's commentary.",
+    heading: "SAMVAD — Author's commentary",
     pdf: { title: "Samvad — Author's Commentary", url: samvadPdf },
     body: `[Optional reading] A conversation between two eternal forces of existence- one that remembers everything, one that forgets on purpose. The Samvad sits beside the Saga the way a shadow sits beside a lamp: not the source, not separate, just what the light cannot help but cast.
 

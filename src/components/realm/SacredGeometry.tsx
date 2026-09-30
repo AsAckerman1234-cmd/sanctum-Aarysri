@@ -33,7 +33,7 @@ export function SacredGeometry({
       <rect x="-92" y="-92" width="184" height="184" />
       <rect x="-92" y="-92" width="184" height="184" transform="rotate(45)" />
       <circle r="44" />
-      <circle r="7" fill="currentColor" stroke="none" />
+      <circle r={variant === "mini" ? 7 : 12} fill={variant === "mini" ? "currentColor" : "none"} stroke={variant === "mini" ? "none" : "currentColor"} />
     </svg>
   );
 }
