@@ -1,5 +1,5 @@
 import { SacredGeometry } from "./SacredGeometry";
-import { GoldenMist } from "./MistScene";
+import { GoldenMist, Shikhara, Chhatri, Lotus, PAD_DATA, padPath } from "./MistScene";
 
 // Deterministic pseudo-random so server and client render identical markup.
 function seeded(seed: number) {
@@ -66,6 +66,48 @@ const WATER_RIBBONS: RibbonPath[] = Array.from({ length: 9 }, (_, i) => ({
   d: `M -80 ${330 + i * 8} C 90 ${170 + i * 10}, 250 ${350 - i * 6}, 440 ${262 + i * 5}`,
   o: 0.55 - i * 0.04,
 }));
+
+/** A classical stone column: base, fluted shaft, capital and abacus. */
+function Column({ cx, base, h, w = 18 }: { cx: number; base: number; h: number; w?: number }) {
+  const top = base - h;
+  return (
+    <g>
+      <rect x={cx - w * 0.95} y={base - 10} width={w * 1.9} height="10" className="wt-stone" />
+      <rect x={cx - w / 2} y={top + 16} width={w} height={h - 26} className="wt-stone" />
+      {[-0.22, 0.22].map((f) => (
+        <path key={f} d={`M${cx + w * f} ${top + 20} V${base - 12}`} className="ts-rib" />
+      ))}
+      <rect x={cx - w * 0.8} y={top + 9} width={w * 1.6} height="8" className="wt-stone" />
+      <path d={`M${cx - w * 1.15} ${top + 9} Q${cx} ${top - 5} ${cx + w * 1.15} ${top + 9}Z`} className="wt-stone" />
+      <rect x={cx - w * 1.25} y={top} width={w * 2.5} height="6" className="wt-stone" />
+    </g>
+  );
+}
+
+const WATER_PADS = PAD_DATA.slice(0, 16);
+const WATER_LOTUS = [
+  { x: 9, y: 66, w: 5, d: 0 }, { x: 24, y: 40, w: 3, d: -2 }, { x: 47, y: 78, w: 5.2, d: -4 },
+  { x: 71, y: 52, w: 3.4, d: -1 }, { x: 86, y: 74, w: 4.6, d: -3 }, { x: 60, y: 30, w: 2.4, d: -2.5 },
+];
+
+function WaterTemples() {
+  return (
+    <g id="wt-all">
+      {[false, true].map((m) => (
+        <g key={String(m)} transform={m ? "translate(1600 0) scale(-1 1)" : undefined}>
+          <Chhatri cx={90} base={380} s={1.05} cls="wt-stone" />
+          <Shikhara cx={250} base={380} h={262} w={112} cls="wt-stone" />
+          <Shikhara cx={430} base={380} h={178} w={86} cls="wt-stone" ribs={false} />
+          <Chhatri cx={560} base={380} s={0.8} cls="wt-stone" />
+          <Column cx={550} base={380} h={150} w={14} />
+          <Column cx={470} base={380} h={196} w={17} />
+        </g>
+      ))}
+      <rect x="0" y="372" width="1600" height="8" className="wt-stone" />
+    </g>
+  );
+}
+
 /** Golden Water: dark celestial ocean, glowing tiers, pillars of light, golden ribbons. */
 export function WaterReflection() {
   const tiers = Array.from({ length: 8 }, (_, i) => i);
@@ -82,6 +124,19 @@ export function WaterReflection() {
         ))}
       </div>
       <Ribbons paths={WATER_RIBBONS} />
+      <svg className="w-temples" viewBox="0 0 1600 380" fill="none" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <linearGradient id="wt-body" x1="0" x2="1">
+            <stop offset="0" stopColor="#081a30" />
+            <stop offset=".6" stopColor="#123a5c" />
+            <stop offset="1" stopColor="#2a6a8a" />
+          </linearGradient>
+        </defs>
+        <WaterTemples />
+      </svg>
+      <svg className="w-temples-ref" viewBox="0 0 1600 380" fill="none" preserveAspectRatio="xMidYMax meet">
+        <use href="#wt-all" />
+      </svg>
       <svg className="w-stairs" viewBox="0 0 1200 260" fill="none">
         <defs>
           <linearGradient id="rw-tier" x1="0" x2="0" y1="0" y2="1">
@@ -118,10 +173,35 @@ export function WaterReflection() {
         <use href="#rw-stairs" />
       </svg>
       <div className="w-floor">
+        <svg className="w-pads" viewBox="0 0 1600 340" preserveAspectRatio="xMidYMax slice" aria-hidden>
+          <defs>
+            <linearGradient id="pad-w" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stopColor="#134a5a" />
+              <stop offset="1" stopColor="#06202c" />
+            </linearGradient>
+            <linearGradient id="wl-b" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stopColor="#d9ecff" />
+              <stop offset="1" stopColor="#6f9fd6" />
+            </linearGradient>
+            <linearGradient id="wl-f" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stopColor="#f6fbff" />
+              <stop offset="1" stopColor="#a9d0f0" />
+            </linearGradient>
+          </defs>
+          {WATER_PADS.map((p, i) => (
+            <path key={i} d={padPath(p.rx, p.ry, p.a0)} transform={`translate(${p.x.toFixed(0)} ${p.y.toFixed(0)}) rotate(${p.rot.toFixed(1)})`} fill="url(#pad-w)" stroke="rgba(244,212,124,.5)" strokeWidth=".8" />
+          ))}
+        </svg>
+        {WATER_LOTUS.map((l, i) => (
+          <Lotus key={i} {...l} gb="wl-b" gf="wl-f" cls="wl" />
+        ))}
         <div className="w-grid" />
         <div className="w-shimmer" />
         <div className="w-glint" />
         <div className="w-sparks" />
+        <div className="w-ring">
+          <SacredGeometry className="spin" />
+        </div>
         <i className="w-ripple" />
         <i className="w-ripple" style={{ animationDelay: "-3s" }} />
         <i className="w-ripple" style={{ animationDelay: "-6s" }} />

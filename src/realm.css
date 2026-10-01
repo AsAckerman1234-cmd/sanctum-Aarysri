@@ -247,6 +247,34 @@
 .m-ambient { left: 0; top: 30%; width: 70%; height: 50%; background: radial-gradient(ellipse at 0% 50%, rgba(255,190,100,.28), transparent 70%); }
 @media (max-aspect-ratio: 1/1) { .m-scene { width: max(100vw, 140vh); height: max(56.25vw, 78.75vh); } }
 
+
+/* ----- Golden Water: sacred amphitheater with temple shikharas, columns, lotus pads and rings ----- */
+.w-temples, .w-temples-ref { left: 50%; width: min(1500px, 150vw); transform: translateX(-50%); }
+.w-temples { bottom: 38%; z-index: 2; filter: drop-shadow(0 0 14px rgba(99,230,255,.22)); }
+.w-temples-ref { top: 62%; z-index: 1; opacity: .2; transform: translateX(-50%) scaleY(-1);
+  -webkit-mask-image: linear-gradient(to top, #000, transparent 75%); mask-image: linear-gradient(to top, #000, transparent 75%); }
+.wt-stone { fill: url(#wt-body); stroke: rgba(120,225,255,.4); stroke-width: .9; vector-effect: non-scaling-stroke; }
+.r-water .ts-rib { stroke: rgba(244,212,124,.34); }
+.r-water .ts-dark { fill: #06101f; }
+.r-water .ts-void { fill: #020812; opacity: .85; }
+.r-water .mt-bead, .r-water .ts-bead { fill: #F4D47C; }
+.w-pads { left: 0; width: 100%; top: 0; height: 100%; }
+.ms-lotus.wl { filter: drop-shadow(0 0 12px rgba(120,225,255,.55)); }
+.w-ring { --s: min(110vmin, 900px); left: 50%; top: 52%; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  transform: perspective(900px) rotateX(74deg); color: var(--r-bright); opacity: .26; will-change: transform;
+  -webkit-mask-image: radial-gradient(circle, #000 34%, transparent 70%); mask-image: radial-gradient(circle, #000 34%, transparent 70%); }
+
+/* ----- Golden Mist: terraced ghat + glowing mist curtains ----- */
+.ts-edge { fill: none; stroke: rgba(255,226,160,.38); stroke-width: .8; vector-effect: non-scaling-stroke; }
+.ms-curtain { top: 6%; height: 66%; will-change: transform, opacity; animation: r-curtain 18s ease-in-out infinite alternate;
+  background: linear-gradient(90deg, transparent, rgba(255,226,170,.24) 35%, rgba(255,240,205,.32) 50%, rgba(255,226,170,.24) 65%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 68%, transparent); mask-image: linear-gradient(180deg, transparent, #000 30%, #000 68%, transparent); }
+.ms-curtain.k1 { left: 5%; width: 14%; }
+.ms-curtain.k2 { left: 31%; width: 10%; animation-delay: -6s; animation-duration: 22s; }
+.ms-curtain.k3 { left: 57%; width: 16%; animation-delay: -11s; }
+.ms-curtain.k4 { left: 84%; width: 11%; animation-delay: -3s; animation-duration: 25s; }
+@keyframes r-curtain { from { transform: translate3d(-1.5%, 0, 0) skewX(-1.5deg); opacity: .5; } to { transform: translate3d(2%, 0, 0) skewX(1.5deg); opacity: .95; } }
+
 /* ---------- Glass surfaces ("divine crystal") ---------- */
 .realm .glass {
   background:
@@ -340,7 +368,7 @@
 /* ---------- Mobile / performance / accessibility ---------- */
 @media (max-width: 720px) {
   .realm .glass { backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .r-particle:nth-child(n+11), .w-pillars span:nth-child(n+5), .r-ribbon.r, .w-grid, .ms-lotus:nth-of-type(n+7), .ms-bird:nth-of-type(n+3), .ms-rays, .ms-beam.b3, .r-cursor { display: none; }
+  .r-particle:nth-child(n+11), .w-pillars span:nth-child(n+5), .ms-curtain.k2, .ms-curtain.k4, .w-ring, .r-ribbon.r, .w-grid, .ms-lotus:nth-of-type(n+7), .ms-bird:nth-of-type(n+3), .ms-rays, .ms-beam.b3, .r-cursor { display: none; }
   .w-beam { filter: none; }
   .r-geo { top: 24vh; }
   .r-main { padding-top: 6.5rem; }

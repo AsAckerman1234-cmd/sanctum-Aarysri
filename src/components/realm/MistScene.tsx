@@ -7,7 +7,7 @@ function seeded(seed: number) {
 }
 
 /** A curvilinear Nagara shikhara: ridged tapering tower, cornice, amalaka and kalasha. */
-function Shikhara({ cx, base, h, w, cls, subs = true, ribs = true }: { cx: number; base: number; h: number; w: number; cls: string; subs?: boolean; ribs?: boolean }) {
+export function Shikhara({ cx, base, h, w, cls, subs = true, ribs = true }: { cx: number; base: number; h: number; w: number; cls: string; subs?: boolean; ribs?: boolean }) {
   const yWall = base - h * 0.2;
   const yTop = base - h;
   const yBody = yTop + h * 0.1;
@@ -45,7 +45,7 @@ function Shikhara({ cx, base, h, w, cls, subs = true, ribs = true }: { cx: numbe
 }
 
 /** A domed chhatri (open pavilion on four columns). */
-function Chhatri({ cx, base, s, cls }: { cx: number; base: number; s: number; cls: string }) {
+export function Chhatri({ cx, base, s, cls }: { cx: number; base: number; s: number; cls: string }) {
   return (
     <g transform={`translate(${cx} ${base}) scale(${s})`}>
       <rect x="-52" y="-14" width="104" height="14" className="ts-dark" />
@@ -69,7 +69,7 @@ const FAR = [
   { cx: 1540, h: 200, w: 86 },
 ];
 
-const PAD_DATA = (() => {
+export const PAD_DATA = (() => {
   const r = seeded(21);
   return Array.from({ length: 24 }, () => {
     const y = 18 + Math.pow(r(), 0.85) * 300;
@@ -78,7 +78,7 @@ const PAD_DATA = (() => {
   });
 })();
 
-const padPath = (rx: number, ry: number, a0: number) => {
+export const padPath = (rx: number, ry: number, a0: number) => {
   const p = (a: number) => `${(rx * Math.cos(a)).toFixed(1)} ${(ry * Math.sin(a)).toFixed(1)}`;
   return `M0 0 L${p(a0)} A${rx} ${ry} 0 1 1 ${p(-a0)}Z`;
 };
@@ -90,9 +90,9 @@ const LOTUS = [
 
 const PETALS = [-66, 66, -44, 44, -22, 22, 0];
 
-function Lotus({ x, y, w, d }: { x: number; y: number; w: number; d: number }) {
+export function Lotus({ x, y, w, d, gb = "lotus-b", gf = "lotus-f", cls = "" }: { x: number; y: number; w: number; d: number; gb?: string; gf?: string; cls?: string }) {
   return (
-    <div className="ms-lotus" style={{ left: `${x}%`, top: `${y}%`, width: `${w}%`, animationDelay: `${d}s` }}>
+    <div className={`ms-lotus ${cls}`} style={{ left: `${x}%`, top: `${y}%`, width: `${w}%`, animationDelay: `${d}s` }}>
       <svg viewBox="0 0 120 90" fill="none">
         <ellipse cx="60" cy="80" rx="46" ry="7" fill="rgba(20,10,2,.35)" />
         {PETALS.map((a, i) => (
@@ -100,7 +100,7 @@ function Lotus({ x, y, w, d }: { x: number; y: number; w: number; d: number }) {
             key={a}
             d="M60 78 C34 70 30 38 60 8 C90 38 86 70 60 78Z"
             transform={`rotate(${a} 60 78)`}
-            fill={i < 4 ? "url(#lotus-b)" : "url(#lotus-f)"}
+            fill={i < 4 ? `url(#${gb})` : `url(#${gf})`}
             stroke="rgba(255,240,220,.45)"
             strokeWidth=".6"
           />
@@ -186,7 +186,12 @@ export function GoldenMist() {
             <Shikhara cx={1240} base={478} h={290} w={118} cls="ts-far2" ribs={false} />
             <Chhatri cx={1345} base={508} s={1.1} cls="ts-far2" />
             <Chhatri cx={720} base={508} s={0.85} cls="ts-far2" />
-            <rect x="80" y="508" width="1460" height="52" className="ts-wall" />
+            {[0, 1, 2, 3, 4].map((i) => (
+              <g key={i}>
+                <rect x="0" y={508 + i * 10.4} width="1600" height="10.4" className="ts-wall" />
+                <path d={`M0 ${508 + i * 10.4} H1600`} className="ts-edge" />
+              </g>
+            ))}
             {Array.from({ length: 30 }, (_, i) => (
               <path key={i} d={`M${100 + i * 48} 512 L${100 + i * 48} 558`} className="ts-rib" />
             ))}
@@ -200,8 +205,8 @@ export function GoldenMist() {
             ))}
             <rect x="925" y="406" width="170" height="11" className="ts-mid" />
             <Shikhara cx={1010} base={408} h={232} w={132} cls="ts-mid" />
-            {[420, 370, 320, 270, 220].map((w, i) => (
-              <rect key={w} x={1010 - w / 2} y={550 - i * 9.5} width={w} height="9.5" className="ts-step" />
+            {[470, 440, 410, 380, 350, 320, 290, 260].map((w, i) => (
+              <rect key={w} x={1010 - w / 2} y={553.5 - i * 6.5} width={w} height="6.5" className="ts-step" />
             ))}
             <Chhatri cx={330} base={508} s={1.2} cls="ts-mid" />
             <Chhatri cx={520} base={508} s={1.0} cls="ts-mid" />
@@ -210,6 +215,9 @@ export function GoldenMist() {
         </svg>
 
         <div className="ms-mist b" />
+        {[1, 2, 3, 4].map((k) => (
+          <div key={k} className={`ms-curtain k${k}`} />
+        ))}
 
         <div className="ms-water" />
         <svg className="ms-reflect" viewBox="0 0 1600 560" preserveAspectRatio="none" aria-hidden>
