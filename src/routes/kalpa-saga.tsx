@@ -105,6 +105,7 @@ function Saga() {
           <div>
             <div className="r-eyebrow">B4 · The Novel</div>
             <h1 className="r-title gold-text" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)" }}>The Kalpa Saga</h1>
+            <div className="r-orn !mx-0" aria-hidden />
             <p className="r-lede !mx-0 !mt-4">Chronicles of the Divine Cycle</p>
             <div className="mt-6 space-y-4 opacity-90 leading-relaxed">
               <p>A long-form mythological-spiritual epic — my long-term project — born from a single question: <em>what if karma isn't a metaphor, but a memory that refuses to die across cycles of creation?</em></p>

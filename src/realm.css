@@ -10,12 +10,20 @@
 .realm.realm-water {
   --r-bg: #050812; --r-bg2: #0B1830; --r-fg: #F7F3E8; --r-muted: #a3b5cc;
   --r-gold: #D4AF37; --r-bright: #F4D47C; --r-accent2: #63E6FF;
-  --r-surface: rgba(10, 26, 50, .46); --r-border: rgba(232, 200, 117, .26);
+  --r-surface: rgba(8, 22, 44, .56);
+  --r-body: #dfe9f5; --r-lede: #cfe0f2;
+  --r-title-grad: linear-gradient(100deg, #E8C875 0%, #FFF6D8 28%, #F4D47C 50%, #CFF4FF 68%, #E8C875 100%);
+  --r-title-glow: drop-shadow(0 0 22px rgba(99,230,255,.28)) drop-shadow(0 3px 8px rgba(0,0,0,.55));
+  --r-tshadow: 0 1px 2px rgba(0,5,16,.85), 0 0 18px rgba(0,10,30,.6); --r-border: rgba(232, 200, 117, .26);
 }
 .realm.realm-mist {
   --r-bg: #17120A; --r-bg2: #21190C; --r-fg: #FFF8E7; --r-muted: #d0bd90;
   --r-gold: #C9A85C; --r-bright: #FFE7A6; --r-accent2: #DDBF79;
-  --r-surface: rgba(60, 44, 20, .40); --r-border: rgba(241, 223, 169, .28);
+  --r-surface: rgba(46, 30, 11, .58);
+  --r-body: #fff1d2; --r-lede: #f5e9c4;
+  --r-title-grad: linear-gradient(100deg, #FFD98A 0%, #FFF8E7 30%, #FFE7A6 52%, #F6B85A 100%);
+  --r-title-glow: drop-shadow(0 3px 16px rgba(24,10,0,.7));
+  --r-tshadow: 0 1px 2px rgba(20,8,0,.9), 0 0 20px rgba(20,8,0,.65); --r-border: rgba(241, 223, 169, .28);
 }
 .realm.realm-water, .realm.realm-mist {
   color: var(--r-fg);
@@ -55,14 +63,22 @@
   max-width: 40rem; margin: 1.4rem auto 0; font-family: "Cormorant Garamond", serif; font-style: italic;
   font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.6; color: var(--r-muted);
 }
-.realm .gold-text {
-  background-image: linear-gradient(100deg, var(--r-bright) 0%, color-mix(in oklab, var(--r-bright) 55%, var(--r-fg)) 38%, var(--r-fg) 50%, color-mix(in oklab, var(--r-bright) 55%, var(--r-fg)) 62%, var(--r-bright) 100%);
-  background-size: 240% 100%; animation: r-sheen 12s ease-in-out infinite;
-}
-@keyframes r-sheen { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.realm .gold-text { background-image: var(--r-title-grad); background-size: 220% 100%; background-position: 0 50%; filter: var(--r-title-glow); animation: none; }
+.realm-js [data-reveal].in .gold-text { animation: r-sweep 3.4s ease-out .3s 1 both; }
+@keyframes r-sweep { from { background-position: 100% 50%; } to { background-position: 0 50%; } }
 .realm p, .realm .leading-relaxed { line-height: 1.85; }
-.r-lede { text-shadow: 0 2px 20px rgba(6,4,0,.85); }
-.realm-mist .r-lede { color: #f5e9c4; text-shadow: 0 1px 3px rgba(10,5,0,.95), 0 2px 24px rgba(10,5,0,.95), 0 0 40px rgba(10,5,0,.7); }
+.realm p { color: var(--r-body); text-shadow: var(--r-tshadow); font-size: 1.02rem; letter-spacing: .012em; }
+.realm p[class*="opacity-"] { opacity: 1; }
+.realm .r-lede { color: var(--r-lede); text-shadow: 0 1px 3px rgba(0,0,0,.9), 0 2px 24px rgba(0,0,0,.8), 0 0 40px rgba(0,0,0,.55); }
+.realm h2, .realm h3 { font-weight: 600; text-shadow: var(--r-tshadow); }
+.r-card h2::after { content: ""; display: block; width: 52px; height: 1px; margin-top: .7rem; background: linear-gradient(90deg, var(--r-bright), transparent); }
+.r-eyebrow { display: inline-flex; align-items: center; gap: .9em; text-shadow: var(--r-tshadow); opacity: 1; color: var(--r-bright); }
+.text-center .r-eyebrow::before, .text-center .r-eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--r-bright)); }
+.text-center .r-eyebrow::after { transform: scaleX(-1); }
+.r-orn { position: relative; width: min(320px, 62%); height: 14px; margin: 1.5rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--r-bright) 28%, transparent 46%, transparent 54%, var(--r-bright) 72%, transparent) center / 100% 1px no-repeat; }
+.r-orn::after { content: "❖"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%); font-size: 13px; color: var(--r-bright); text-shadow: 0 0 12px var(--r-bright); }
+.realm ::selection { background: color-mix(in oklab, var(--r-bright) 38%, transparent); color: #fff; }
 
 /* ---------- Layout ---------- */
 .realm-root { position: relative; min-height: 100vh; }
@@ -118,13 +134,9 @@
     radial-gradient(ellipse 60% 40% at 15% 30%, rgba(24,60,110,.35), transparent 70%),
     radial-gradient(ellipse 60% 40% at 85% 30%, rgba(24,60,110,.35), transparent 70%),
     linear-gradient(180deg, #050812 0%, #071426 42%, #0B1830 62%, #050812 100%); }
-.w-stars { left: 0; right: 0; top: 0; height: 58%; z-index: 0; opacity: .7; animation: r-twinkle 10s ease-in-out infinite;
-  background-image:
-    radial-gradient(1px 1px at 8% 14%, #fff, transparent), radial-gradient(1px 1px at 19% 32%, #cfe9ff, transparent),
-    radial-gradient(1.4px 1.4px at 31% 9%, #fff, transparent), radial-gradient(1px 1px at 44% 24%, #F4D47C, transparent),
-    radial-gradient(1px 1px at 57% 12%, #fff, transparent), radial-gradient(1.4px 1.4px at 68% 30%, #cfe9ff, transparent),
-    radial-gradient(1px 1px at 79% 10%, #fff, transparent), radial-gradient(1px 1px at 91% 26%, #F4D47C, transparent),
-    radial-gradient(1px 1px at 25% 44%, #fff, transparent), radial-gradient(1px 1px at 84% 46%, #fff, transparent); }
+.w-nebula, .w-stars { inset: 0; z-index: 0; background: url(./assets/realm/water-nebula.webp) 50% 0 / cover no-repeat; opacity: .55; }
+.w-stars { background-image: url(./assets/realm/water-stars.webp); opacity: .62; animation: r-twinkle 10s ease-in-out infinite; }
+.w-stars.s2 { transform: scaleX(-1); opacity: .34; animation-delay: -5s; animation-duration: 13s; }
 @keyframes r-twinkle { 0%,100% { opacity: .45; } 50% { opacity: .85; } }
 .w-beam { left: 50%; top: 0; width: 64vw; height: 66vh; z-index: 1; transform: translateX(-50%);
   background: linear-gradient(180deg, rgba(99,230,255,.26), rgba(99,230,255,.05) 80%, transparent);
@@ -155,6 +167,10 @@
 @keyframes r-grid { from { transform: perspective(600px) rotateX(64deg) translateY(0); } to { transform: perspective(600px) rotateX(64deg) translateY(90px); } }
 .w-glint { left: 50%; top: 0; width: 70%; height: 60%; transform: translateX(-50%);
   background: radial-gradient(ellipse 45% 60% at 50% 0%, rgba(99,230,255,.35), rgba(244,212,124,.12) 45%, transparent 75%); animation: r-breath 11s ease-in-out infinite; }
+.w-shimmer { left: 0; top: 0; width: 200%; height: 100%; opacity: .62; will-change: transform; animation: r-shimmer 140s linear infinite;
+  background: url(./assets/realm/water-shimmer.webp) 0 0 / 50% 100% repeat-x;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%); mask-image: linear-gradient(180deg, transparent, #000 18%); }
+@keyframes r-shimmer { to { transform: translate3d(-50%, 0, 0); } }
 .w-sparks { inset: 0; opacity: .5; animation: r-twinkle 8s ease-in-out infinite;
   background-image: radial-gradient(circle at 20% 30%, #F4D47C 0 1px, transparent 1.8px), radial-gradient(circle at 70% 60%, #F4D47C 0 1px, transparent 1.8px), radial-gradient(circle at 45% 80%, #fff 0 .8px, transparent 1.6px);
   background-size: 130px 82px, 91px 57px, 173px 109px; }
@@ -167,7 +183,7 @@
 .m-scene { left: 50%; bottom: 0; width: max(100vw, 177.78vh); height: max(56.25vw, 100vh); transform: translateX(-50%); z-index: 1; }
 .m-scene > * { position: absolute; }
 .ms-sky { inset: 0;
-  background:
+  background: url(./assets/realm/mist-sky.webp) 50% 50% / 100% 100% no-repeat,
     radial-gradient(ellipse 60% 62% at 13% 55%, rgba(255,226,150,.95), rgba(255,170,70,.5) 38%, transparent 72%),
     radial-gradient(ellipse 90% 60% at 55% 66%, rgba(240,170,80,.5), transparent 70%),
     linear-gradient(180deg, #1c1108 0%, #3d2610 22%, #8a5620 42%, #d18f3f 58%, #f0b660 62.2%, #f0b660 100%);
@@ -186,22 +202,17 @@
 .ms-beam.b1 { transform: rotate(9deg); }
 .ms-beam.b2 { transform: rotate(19deg); animation-delay: -5s; opacity: .8; }
 .ms-beam.b3 { transform: rotate(-3deg); animation-delay: -9s; opacity: .7; }
-.ms-cloud { border-radius: 50%; will-change: transform; animation: r-cloud 120s ease-in-out infinite alternate;
-  background: radial-gradient(ellipse 50% 45% at 30% 60%, rgba(255,205,130,.5), transparent 70%), radial-gradient(ellipse 40% 40% at 65% 50%, rgba(255,226,170,.42), transparent 70%), radial-gradient(ellipse 30% 35% at 85% 65%, rgba(255,190,110,.36), transparent 70%); }
-.ms-cloud.k1 { left: -5%; top: 8%; width: 46%; height: 18%; }
-.ms-cloud.k2 { left: 30%; top: 4%; width: 44%; height: 16%; animation-duration: 150s; animation-delay: -40s; opacity: .85; }
-.ms-cloud.k3 { left: 58%; top: 10%; width: 50%; height: 19%; animation-duration: 135s; animation-delay: -70s; }
-.ms-cloud.k4 { left: 6%; top: 24%; width: 40%; height: 14%; animation-duration: 110s; animation-delay: -20s; opacity: .9; }
-.ms-cloud.k5 { left: 44%; top: 22%; width: 42%; height: 13%; animation-duration: 160s; animation-delay: -90s; opacity: .8; }
-.ms-cloud.k6 { left: 70%; top: 30%; width: 36%; height: 11%; animation-duration: 125s; animation-delay: -55s; opacity: .7; }
-.ms-cloud.k7 { left: 18%; top: 36%; width: 34%; height: 9%; animation-duration: 140s; animation-delay: -30s; opacity: .7; }
-@keyframes r-cloud { from { transform: translate3d(-5%, 0, 0); } to { transform: translate3d(6%, 1%, 0); } }
+.ms-clouds { left: 0; width: 200%; will-change: transform; background-repeat: repeat-x; background-size: 50% 100%; animation: r-cloudflow linear infinite; }
+.ms-clouds.ca { top: 1%; height: 30%; background-image: url(./assets/realm/mist-clouds-a.webp); animation-duration: 280s; }
+.ms-clouds.cb { top: 18%; height: 21%; background-image: url(./assets/realm/mist-clouds-b.webp); animation-duration: 190s; animation-direction: reverse; opacity: .85; }
+@keyframes r-cloudflow { to { transform: translate3d(-50%, 0, 0); } }
 .ms-bird { left: -4%; height: auto; will-change: transform; animation: r-fly linear infinite; }
 @keyframes r-fly { from { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(60vw, -1.5vh, 0); } to { transform: translate3d(120vw, 0, 0); } }
 .ms-far, .ms-mid { left: 0; width: 100%; top: 0; height: 62.2%; }
 .ms-far path, .ms-far ellipse, .ms-far rect { vector-effect: none; }
 .ts-far { fill: url(#ts-far); }
 .ts-far2 { fill: url(#ts-far2); }
+.ts-far3 { fill: url(#ts-far3); }
 .ts-mid { fill: url(#ts-mid); stroke: rgba(255,226,160,.28); stroke-width: .8; vector-effect: non-scaling-stroke; }
 .ts-wall { fill: url(#ts-wall); stroke: rgba(255,226,160,.25); stroke-width: .8; vector-effect: non-scaling-stroke; }
 .ts-step { fill: #4a2e14; stroke: rgba(255,226,160,.4); stroke-width: .8; vector-effect: non-scaling-stroke; }
@@ -224,12 +235,9 @@
 .ms-glitter { left: 13%; width: 10%; margin-left: -5%; top: 62.2%; height: 32%; animation: r-twinkle 5s ease-in-out infinite;
   background: repeating-linear-gradient(180deg, transparent 0 7px, rgba(255,238,196,.75) 7px 8.5px, transparent 8.5px 15px);
   -webkit-mask-image: radial-gradient(ellipse 50% 100% at 50% 0%, #000, transparent 75%); mask-image: radial-gradient(ellipse 50% 100% at 50% 0%, #000, transparent 75%); }
-.ms-streak { left: -10%; width: 120%; top: 62.2%; bottom: 0; will-change: transform;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
-.ms-streak.a { background: repeating-linear-gradient(180deg, transparent 0 21px, rgba(255,222,160,.12) 21px 22.5px, transparent 22.5px 43px); animation: r-streak 16s ease-in-out infinite alternate; }
-.ms-streak.b { background: repeating-linear-gradient(180deg, transparent 0 31px, rgba(255,232,180,.09) 31px 32px, transparent 32px 61px); animation: r-streak 23s ease-in-out infinite alternate-reverse; }
-.ms-streak.c { background: repeating-linear-gradient(180deg, transparent 0 47px, rgba(255,210,140,.10) 47px 49px, transparent 49px 90px); animation: r-streak 31s ease-in-out infinite alternate; }
-@keyframes r-streak { from { transform: translate3d(-3%, 0, 0); } to { transform: translate3d(3%, 6px, 0); } }
+.ms-shimmer { left: 0; width: 200%; top: 62.2%; bottom: 0; opacity: .85; will-change: transform; animation: r-shimmer 160s linear infinite;
+  background: url(./assets/realm/mist-shimmer.webp) 0 0 / 50% 100% repeat-x;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 15%); mask-image: linear-gradient(180deg, transparent, #000 15%); }
 .ms-pads { left: 0; width: 100%; top: 62.2%; height: 37.8%; }
 .ms-lotus { position: absolute; opacity: .92; will-change: transform; animation: r-bob 7s ease-in-out infinite alternate; transform-origin: 50% 90%; filter: drop-shadow(0 0 10px rgba(255,190,150,.35)); }
 .ms-lotus svg { display: block; width: 100%; height: auto; }
@@ -332,7 +340,7 @@
 /* ---------- Mobile / performance / accessibility ---------- */
 @media (max-width: 720px) {
   .realm .glass { backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .r-particle:nth-child(n+11), .w-pillars span:nth-child(n+5), .r-ribbon.r, .w-grid, .ms-cloud.k5, .ms-cloud.k6, .ms-cloud.k7, .ms-lotus:nth-of-type(n+7), .ms-bird:nth-of-type(n+3), .ms-streak.b, .ms-streak.c, .ms-rays, .ms-beam.b3, .r-cursor { display: none; }
+  .r-particle:nth-child(n+11), .w-pillars span:nth-child(n+5), .r-ribbon.r, .w-grid, .ms-lotus:nth-of-type(n+7), .ms-bird:nth-of-type(n+3), .ms-rays, .ms-beam.b3, .r-cursor { display: none; }
   .w-beam { filter: none; }
   .r-geo { top: 24vh; }
   .r-main { padding-top: 6.5rem; }
@@ -405,3 +413,6 @@ html.realm { scroll-behavior: smooth; }
 .r-veil.on::before { transform: scale(1.15); }
 .r-veil.to-mist::before { background: radial-gradient(circle, rgba(255,231,166,.45), transparent 45%); }
 .r-veil.to-water::before { background: radial-gradient(circle, rgba(99,230,255,.40), transparent 45%); }
+
+/* film grain: breaks up gradient banding and gives the backdrops a cinematic, high-definition finish */
+.r-grain { inset: 0; background: url(./assets/realm/grain.png) 0 0 / 256px 256px; opacity: .28; }

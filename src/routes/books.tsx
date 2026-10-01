@@ -22,6 +22,7 @@ function Books() {
         </div>
         <div className="r-eyebrow">B5 · The Untitled</div>
         <h1 className="r-title gold-text">Soon…</h1>
+        <div className="r-orn" aria-hidden />
         <p className="r-lede">
           Twelve chapters, one world, one quiet thread beneath them all. It is being written slowly, honestly.
         </p>

@@ -55,7 +55,7 @@ function Chhatri({ cx, base, s, cls }: { cx: number; base: number; s: number; cl
       ))}
       <rect x="-56" y="-72" width="112" height="10" className={cls} />
       <path d="M-42 -72 Q-46 -122 0 -134 Q46 -122 42 -72Z" className={cls} />
-      <path d="M-28 -74 Q-30 -112 0 -128 M28 -74 Q30 -112 0 -128 M0 -74 L0 -130" className="ts-rib" />
+      <path d="M-28 -74 Q-30 -112 0 -128 M28 -74 Q30 -112 0 -128 M0 -74 L0 -130 M-32 -14 V-46 A9 9 0 0 1 -14 -46 V-14 M-9 -14 V-46 A9 9 0 0 1 9 -46 V-14 M14 -14 V-46 A9 9 0 0 1 32 -46 V-14" className="ts-rib" />
       <rect x="-5" y="-142" width="10" height="9" className={cls} />
       <ellipse cx="0" cy="-146" rx="6" ry="7" className={cls} />
       <path d="M-1.5 -152 L0 -172 L1.5 -152Z" className={cls} />
@@ -137,9 +137,8 @@ export function GoldenMist() {
         {[1, 2, 3].map((k) => (
           <div key={k} className={`ms-beam b${k}`} />
         ))}
-        {[1, 2, 3, 4, 5, 6, 7].map((k) => (
-          <div key={k} className={`ms-cloud k${k}`} />
-        ))}
+        <div className="ms-clouds ca" />
+        <div className="ms-clouds cb" />
         {BIRDS.map((b, i) => (
           <svg key={i} className="ms-bird" viewBox="0 0 24 10" style={{ top: `${b.top}%`, width: `${1.6 * b.s}%`, animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }}>
             <path d="M0 6 Q6 -2 12 6 Q18 -2 24 6" fill="none" stroke="#3a2410" strokeWidth="1.6" strokeLinecap="round" />
@@ -151,6 +150,10 @@ export function GoldenMist() {
             <linearGradient id="ts-far" x1="0" x2="1">
               <stop offset="0" stopColor="#f6cf8e" stopOpacity=".5" />
               <stop offset="1" stopColor="#b9803f" stopOpacity=".34" />
+            </linearGradient>
+            <linearGradient id="ts-far3" x1="0" x2="1">
+              <stop offset="0" stopColor="#ffe0a8" stopOpacity=".34" />
+              <stop offset="1" stopColor="#c99556" stopOpacity=".2" />
             </linearGradient>
             <linearGradient id="ts-far2" x1="0" x2="1">
               <stop offset="0" stopColor="#efbc72" stopOpacity=".7" />
@@ -168,6 +171,9 @@ export function GoldenMist() {
           </defs>
           <g id="ms-far">
             {FAR.map((f, i) => (
+              <Shikhara key={`f${i}`} cx={f.cx + 70} base={552} h={f.h * 0.78} w={f.w * 0.9} cls="ts-far3" subs={false} ribs={false} />
+            ))}
+            {FAR.map((f, i) => (
               <Shikhara key={i} cx={f.cx} base={548} h={f.h} w={f.w} cls="ts-far" subs={f.h > 200} ribs={false} />
             ))}
           </g>
@@ -183,6 +189,9 @@ export function GoldenMist() {
             <rect x="80" y="508" width="1460" height="52" className="ts-wall" />
             {Array.from({ length: 30 }, (_, i) => (
               <path key={i} d={`M${100 + i * 48} 512 L${100 + i * 48} 558`} className="ts-rib" />
+            ))}
+            {Array.from({ length: 15 }, (_, i) => (
+              <path key={`n${i}`} d={`M${112 + i * 96} 556 V534 A10 10 0 0 1 ${132 + i * 96} 534 V556`} className="ts-rib" />
             ))}
             {/* open hall + tall shikhara */}
             <rect x="935" y="416" width="150" height="92" className="ts-void" />
@@ -209,9 +218,7 @@ export function GoldenMist() {
         </svg>
         <div className="ms-glint" />
         <div className="ms-glitter" />
-        {["a", "b", "c"].map((k) => (
-          <div key={k} className={`ms-streak ${k}`} />
-        ))}
+        <div className="ms-shimmer" />
 
         <svg className="ms-pads" viewBox="0 0 1600 340" preserveAspectRatio="none" aria-hidden>
           <defs>

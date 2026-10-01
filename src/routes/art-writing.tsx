@@ -39,6 +39,7 @@ function ArtWriting() {
         <header className="text-center mb-12" data-reveal>
           <div className="r-eyebrow">B1 · The Vault</div>
           <h1 className="r-title gold-text">Art &amp; Writing</h1>
+          <div className="r-orn" aria-hidden />
           <p className="r-lede">
             Two languages through which I explore ideas, emotions, and imagination — worlds given form, stories given breath.
           </p>

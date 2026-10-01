@@ -68,11 +68,13 @@ const WATER_RIBBONS: RibbonPath[] = Array.from({ length: 9 }, (_, i) => ({
 }));
 /** Golden Water: dark celestial ocean, glowing tiers, pillars of light, golden ribbons. */
 export function WaterReflection() {
-  const tiers = Array.from({ length: 7 }, (_, i) => i);
+  const tiers = Array.from({ length: 8 }, (_, i) => i);
   return (
     <div className="r-layer r-water">
       <div className="w-sky" />
+      <div className="w-nebula" />
       <div className="w-stars" />
+      <div className="w-stars s2" />
       <div className="w-beam" />
       <div className="w-pillars">
         {[33, 36.5, 40, 60, 63.5, 67].map((l, i) => (
@@ -97,14 +99,17 @@ export function WaterReflection() {
             <ellipse
               key={i}
               cx="600"
-              cy={214 - i * 15}
-              rx={560 - i * 66}
-              ry={30 - i * 3.2}
+              cy={214 - i * 14}
+              rx={560 - i * 62}
+              ry={30 - i * 3.1}
               fill="url(#rw-tier)"
               stroke={i % 2 ? "#63E6FF" : "#F4D47C"}
               strokeWidth="1.4"
               opacity={0.95 - i * 0.05}
             />
+          ))}
+          {tiers.map((i) => (
+            <ellipse key={`h${i}`} cx="600" cy={212.5 - i * 14} rx={556 - i * 62} ry={28 - i * 3.1} fill="none" stroke="#fff" strokeOpacity=".22" strokeWidth=".7" />
           ))}
           <ellipse cx="600" cy="112" rx="120" ry="34" fill="url(#rw-core)" />
         </g>
@@ -114,6 +119,7 @@ export function WaterReflection() {
       </svg>
       <div className="w-floor">
         <div className="w-grid" />
+        <div className="w-shimmer" />
         <div className="w-glint" />
         <div className="w-sparks" />
         <i className="w-ripple" />
@@ -137,6 +143,7 @@ export function GlobalBackground() {
       </div>
       <CelestialParticles />
       <div className="r-vignette" />
+      <div className="r-grain" />
       <div className="r-cursor" />
     </div>
   );
