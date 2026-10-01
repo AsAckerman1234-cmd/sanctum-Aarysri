@@ -41,6 +41,8 @@ export function RealmShell({ children, wide = false }: { children: ReactNode; wi
     if (!root) return;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    // Phones, tablets and "desktop site" mode on phones: skip scroll-parallax, shorten transitions.
+    const lite = matchMedia("(max-width: 720px), (hover: none), (pointer: coarse)").matches;
     let raf = 0;
     let x = 0;
     let y = 0;
@@ -81,12 +83,12 @@ export function RealmShell({ children, wide = false }: { children: ReactNode; wi
       e.preventDefault();
       e.stopPropagation();
       setPhase("closing");
-      navTimer = window.setTimeout(() => router.navigate({ to: href as never }), 650);
+      navTimer = window.setTimeout(() => router.navigate({ to: href as never }), lite ? 260 : 650);
       fallback = window.setTimeout(() => setPhase("open"), 2600);
     };
     root.addEventListener("click", onClick);
     if (fine && !reduce) window.addEventListener("pointermove", onMove, { passive: true });
-    if (!reduce) window.addEventListener("scroll", onScroll, { passive: true });
+    if (!reduce && !lite) window.addEventListener("scroll", onScroll, { passive: true });
 
     // Scroll reveal: blur-to-focus as sections enter.
     const items = Array.from(root.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -109,7 +111,7 @@ export function RealmShell({ children, wide = false }: { children: ReactNode; wi
         { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
       );
       // wait for the mist to begin parting before revealing content
-      startTimer = window.setTimeout(() => items.forEach((el) => io!.observe(el)), 550);
+      startTimer = window.setTimeout(() => items.forEach((el) => io!.observe(el)), lite ? 150 : 550);
     }
     return () => {
       root.removeEventListener("click", onClick);

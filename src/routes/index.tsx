@@ -37,7 +37,7 @@ function Home() {
       <section className="relative">
         <Slideshow
           images={heroImages}
-          className="h-[clamp(460px,68vh,760px)] w-full"
+          className="h-[clamp(460px,68svh,760px)] w-full"
         >
           <div className="absolute inset-0 grid place-items-center px-4 sm:px-6 text-center">
             <div className="max-w-3xl">

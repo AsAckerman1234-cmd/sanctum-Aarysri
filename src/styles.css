@@ -142,6 +142,7 @@
       radial-gradient(ellipse at 20% 110%, color-mix(in oklab, var(--secondary-c) 25%, transparent), transparent 60%),
       var(--bg);
     min-height: 100vh;
+    min-height: 100svh;
     overflow-x: hidden;
     transition: background 1s ease;
   }
@@ -452,3 +453,29 @@
 /* keep tw-animate defaults, allow selection in inputs */
 input, textarea { user-select: text; }
 
+
+/* =====================================================================
+   LITE MODE — phones, tablets and "Desktop site" mode on phones
+   ===================================================================== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+a, button, [role="button"] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+@media (max-width: 720px), (hover: none), (pointer: coarse) {
+  .glass {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: color-mix(in oklab, var(--card-bg) 70%, #000);
+    box-shadow: 0 10px 28px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .glass-hover:hover { transform: none; }
+  .eclipse-rays { display: none; }
+  .eclipse-orb, .mandala, .fog { animation: none; filter: none; mix-blend-mode: normal; }
+  .fog { opacity: .4; inset: -10%; }
+  .mandala { opacity: .07; }
+  .particle { box-shadow: none; will-change: auto; }
+  .particle:nth-child(n+9) { display: none; }
+  .lit-frame::after { display: none; }
+  .float-soft { animation: none; will-change: auto; }
+  .slide img { animation: none !important; }
+  .slide-stage button { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .lightbox, .saga-reader-header, .saga-reader-toolbar { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .saga-preview-button { animation: none; }
+}

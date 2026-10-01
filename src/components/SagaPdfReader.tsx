@@ -121,7 +121,7 @@ export function SagaPdfReader({ document }: { document: SagaDocument | null }) {
             className="saga-pdf-document"
           >
             {pageCount > 0 && containerWidth > 0 && (
-              <Page pageNumber={pageNumber} width={pageWidth} renderTextLayer={false} renderAnnotationLayer={false} loading={<LoaderCircle className="size-5 animate-spin" />} />
+              <Page pageNumber={pageNumber} width={pageWidth} devicePixelRatio={Math.min(window.devicePixelRatio || 1, 2)} renderTextLayer={false} renderAnnotationLayer={false} loading={<LoaderCircle className="size-5 animate-spin" />} />
             )}
           </Document>
         )}

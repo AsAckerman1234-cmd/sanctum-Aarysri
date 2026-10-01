@@ -1,15 +1,22 @@
 import { useMemo } from "react";
 
+// Deterministic pseudo-random: server and client render identical markup (no hydration mismatch).
+function seeded(seed: number) {
+  let s = seed;
+  return () => ((s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296);
+}
+const r = seeded(11);
+
 export function EclipseBackground() {
   const particles = useMemo(
     () =>
-      Array.from({ length: 40 }).map((_, i) => ({
-        left: Math.random() * 100,
-        duration: 14 + Math.random() * 22,
-        delay: -Math.random() * 30,
-        size: 1 + Math.random() * 3,
-        dx: (Math.random() - 0.5) * 200,
-        opacity: 0.3 + Math.random() * 0.5,
+      Array.from({ length: 24 }).map(() => ({
+        left: r() * 100,
+        duration: 14 + r() * 22,
+        delay: -r() * 30,
+        size: 1 + r() * 3,
+        dx: (r() - 0.5) * 200,
+        opacity: 0.3 + r() * 0.5,
       })),
     [],
   );

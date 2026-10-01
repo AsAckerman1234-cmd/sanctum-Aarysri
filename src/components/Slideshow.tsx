@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Slideshow({
   images,
@@ -13,16 +13,32 @@ export function Slideshow({
 }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(true);
+  const [seen, setSeen] = useState<Set<number>>(() => new Set([0]));
+  const ref = useRef<HTMLDivElement>(null);
+  // Only mount the current + next image (saves bandwidth/decoding on phones).
   useEffect(() => {
-    if (paused) return;
+    setSeen((prev) => (prev.has(i) && prev.has((i + 1) % images.length) ? prev : new Set(prev).add(i).add((i + 1) % images.length)));
+  }, [i, images.length]);
+  // Pause when scrolled off-screen or when the tab is hidden.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.05 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (paused || !inView) return;
     const t = setInterval(() => setI((v) => (v + 1) % images.length), interval);
     return () => clearInterval(t);
-  }, [images.length, interval, paused]);
+  }, [images.length, interval, paused, inView]);
 
   const go = (dir: number) => setI((v) => (v + dir + images.length) % images.length);
 
   return (
     <div
+      ref={ref}
       className={`slide-stage group relative overflow-hidden rounded-3xl ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -35,12 +51,13 @@ export function Slideshow({
           }`}
           style={{ zIndex: idx === i ? 1 : 0 }}
         >
-          <img
+          {(seen.has(idx) || idx === i) && <img
             src={src}
             alt=""
+            decoding="async"
             loading={idx === 0 ? "eager" : "lazy"}
             className={`h-full w-full object-cover ${idx === i ? "animate-[kenburns_4.5s_ease-out_forwards]" : ""}`}
-          />
+          />}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40" />
         </div>
       ))}

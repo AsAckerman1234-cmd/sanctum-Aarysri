@@ -46,7 +46,7 @@ function ArtWriting() {
         </header>
 
         <div className="r-frame" data-reveal>
-          <Slideshow images={slides} className="h-[60vh] min-h-[420px]" />
+          <Slideshow images={slides} className="h-[60svh] min-h-[420px]" />
         </div>
 
         {/* Overlapping collage — same proportional layout on every screen */}
