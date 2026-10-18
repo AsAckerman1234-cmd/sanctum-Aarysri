@@ -39,8 +39,8 @@ function Tech() {
           <p className="italic opacity-80">A privacy-first, fully offline autonomous AI brain model. No cloud. No compromise. Just a machine that thinks <em>with</em> me, not <em>about</em> me elsewhere.</p>
           <div className="space-y-4 mt-4 opacity-90 leading-relaxed">
             <p>Aryaa is my attempt at building a sovereign cognitive mirror, an AI that recognises you by face before it even speaks to you, remembers your evolving ideas without forgetting the old ones, tears apart your own arguments to make them stronger, and quietly runs your day in the background. All of it, 100% offline, on hardware most people would call "not enough."</p>
-            <p>This isn't a product. It's personal — built strictly for my own use, shaped and reshaped around exactly how I think and work. Not for sale, not for scale. Just mine.</p>
-            <p className="text-sm opacity-70"><span className="uppercase tracking-[0.25em] text-[color:var(--accent-c)]">Status:</span> No dedicated hardware yet, but the skills that will power Aryaa I'm already building — piece by piece — ready for the day the machine catches up to the vision. And Soon We Will Able To Use A Basic Aryaa On This Website. SOON...</p>
+            <p>This isn't a product. It's personal, built strictly for my own use, shaped and reshaped around exactly how I think and work. Not for sale, not for scale. Just mine.</p>
+            <p className="text-sm opacity-70"><span className="uppercase tracking-[0.25em] text-[color:var(--accent-c)]">Status:</span> No dedicated hardware yet, but the skills that will power Aryaa I'm already building — piece by piece — ready for the day the machine catches up to the vision. And Soon We Will Able To Use A Basic Aryaa On This Website. SooN...</p>
           </div>
         </div>
       </section>

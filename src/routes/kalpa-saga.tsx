@@ -108,9 +108,9 @@ function Saga() {
             <div className="r-orn !mx-0" aria-hidden />
             <p className="r-lede !mx-0 !mt-4">Chronicles of the Divine Cycle</p>
             <div className="mt-6 space-y-4 opacity-90 leading-relaxed">
-              <p>A long-form mythological-spiritual epic — my long-term project — born from a single question: <em>what if karma isn't a metaphor, but a memory that refuses to die across cycles of creation?</em></p>
+              <p>A long form mythological-spiritual epic, my long term project, born from a single question: <em>what if karma isn't a metaphor, but a memory that refuses to die across cycles of creation?</em></p>
               <p>Blending mythology, philosophy, mystery, politics, ancient and psychological storytelling, the series explores a world where destiny, free will, sacrifice, and the nature of the self intertwine across generations.</p>
-              <p>There are no heroes and no villains here — because this isn't just a story, it's a Saga. Every character walks their own path, shaped by their own past, their own choices, their own karma.</p>
+              <p>There are no heroes and no villains here because this isn't just a story, it's a Saga. Every character walks their own path, shaped by their own past, their own choices, their own karma.</p>
             </div>
           </div>
         </section>
