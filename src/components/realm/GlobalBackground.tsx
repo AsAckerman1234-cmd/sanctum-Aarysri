@@ -1,5 +1,6 @@
 import { SacredGeometry } from "./SacredGeometry";
-import { GoldenMist, Shikhara, Chhatri, Lotus, PAD_DATA, padPath } from "./MistScene";
+import { Shikhara, Chhatri, Lotus, PAD_DATA, padPath } from "./MistScene";
+import { GoldenDawn } from "./GoldenDawn";
 
 // Deterministic pseudo-random so server and client render identical markup.
 function seeded(seed: number) {
@@ -214,7 +215,7 @@ export function GlobalBackground() {
   return (
     <div className="r-env" aria-hidden>
       <WaterReflection />
-      <GoldenMist />
+      <GoldenDawn />
       <div className="r-geo">
         <SacredGeometry className="spin" />
       </div>

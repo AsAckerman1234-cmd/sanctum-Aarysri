@@ -5,7 +5,7 @@ export type RealmTheme = "golden-water" | "golden-mist";
 
 export const REALM_THEMES: Record<RealmTheme, { label: string; cls: string; next: RealmTheme }> = {
   "golden-water": { label: "Golden Water", cls: "realm-water", next: "golden-mist" },
-  "golden-mist": { label: "Golden Mist", cls: "realm-mist", next: "golden-water" },
+  "golden-mist": { label: "Golden Dawn", cls: "realm-mist", next: "golden-water" },
 };
 
 const KEY = "realm-theme";

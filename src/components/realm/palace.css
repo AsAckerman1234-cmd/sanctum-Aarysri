@@ -1,0 +1,135 @@
+/* GOLDEN MIST — "Ghat of Lamps" (scene styles). Imported by MistScene.tsx. */
+
+/* ---------- the painting, kept as it is ---------- */
+.gh-back {
+  inset: -6%; width: 112%; height: 112%; object-fit: cover; display: block;
+  filter: blur(36px) saturate(1.25) brightness(.62);
+}
+.gh-tint { inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 55%, rgba(255, 170, 60, .16), rgba(20, 8, 0, .35)); }
+
+.gh-stage {
+  left: 50%; top: 0; height: 100vh; height: 100svh; aspect-ratio: 735 / 976; transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+.gh-stage > * { position: absolute; }
+.gh-img { inset: 0; width: 100%; height: 100%; display: block; filter: saturate(1.12) contrast(1.04); }
+
+
+/* wide screens: the painting fills the full width, framed on the temple, ghat steps and the boat */
+@media (min-aspect-ratio: 1/1) {
+  .gh-back { display: none; }
+  .gh-stage {
+    left: 0; width: 100vw; height: auto; transform: none; top: -43.8vw;
+    -webkit-mask-image: none; mask-image: none;
+  }
+}
+
+/* ---------- glow ---------- */
+.gh-bloom { mix-blend-mode: screen; pointer-events: none; will-change: opacity; }
+.gh-bloom.a {
+  left: 8%; top: 30%; width: 84%; height: 44%;
+  background: radial-gradient(ellipse 50% 50% at 46% 52%, rgba(255, 176, 70, .5), rgba(255, 140, 40, .16) 55%, transparent 75%);
+  animation: gh-breathe 7s ease-in-out infinite;
+}
+.gh-bloom.b {
+  left: 0; top: 68%; width: 100%; height: 32%;
+  background: radial-gradient(ellipse 52% 55% at 48% 28%, rgba(255, 190, 90, .42), rgba(255, 150, 50, .12) 60%, transparent 78%);
+  animation: gh-breathe 9s ease-in-out infinite -3s;
+}
+@keyframes gh-breathe { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+
+/* ---------- lights ---------- */
+.gh-group { inset: 0; mix-blend-mode: screen; pointer-events: none; }
+.gh-dot { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); will-change: opacity, transform; }
+.gh-dot.diya { background: #ffd887; box-shadow: 0 0 8px 3px rgba(255, 168, 56, .85), 0 0 22px 6px rgba(255, 140, 40, .35); animation: gh-flicker ease-in-out infinite; }
+.gh-dot.win { background: radial-gradient(closest-side, rgba(255, 196, 96, .7), rgba(255, 160, 60, .22) 60%, transparent); animation: gh-breathe ease-in-out infinite; }
+.gh-dot.lan { background: #ffe0a0; box-shadow: 0 0 12px 4px rgba(255, 176, 70, .8); animation: gh-rise linear infinite; }
+.gh-dot.spk { background: #fff0c4; box-shadow: 0 0 7px 2px rgba(255, 200, 110, .9); animation: gh-twinkle ease-in-out infinite; }
+@keyframes gh-flicker { 0%, 100% { opacity: .55; transform: translate(-50%, -50%) scale(.85); } 40% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } 70% { opacity: .75; transform: translate(-50%, -50%) scale(.95); } }
+@keyframes gh-twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes gh-rise {
+  0% { transform: translate3d(-50%, -50%, 0); opacity: 0; }
+  15% { opacity: .95; }
+  85% { opacity: .5; }
+  100% { transform: translate3d(calc(-50% + var(--dx)), calc(-50% - 22vh), 0); opacity: 0; }
+}
+
+/* ---------- river ---------- */
+.gh-streak {
+  position: absolute; top: 77%; width: .9%; transform: translateX(-50%); border-radius: 0;
+  background: linear-gradient(180deg, rgba(255, 190, 90, .55), rgba(255, 160, 60, .18) 60%, transparent);
+  will-change: opacity, transform; animation: gh-shimmer 4.2s ease-in-out infinite;
+}
+@keyframes gh-shimmer { 0%, 100% { opacity: .25; transform: translateX(-50%) scaleX(.8); } 50% { opacity: .6; transform: translateX(-50%) scaleX(1.5); } }
+.gh-boatglow {
+  left: 53%; top: 74.5%; width: 17%; height: 8%; margin: -4% 0 0 -8.5%; border-radius: 50%; mix-blend-mode: screen;
+  background: radial-gradient(closest-side, rgba(255, 200, 110, .6), transparent);
+  animation: gh-breathe 3.4s ease-in-out infinite;
+}
+.gh-ripple {
+  left: 53%; top: 76%; width: 15%; height: 2.6%; margin: -1.3% 0 0 -7.5%; border-radius: 50%;
+  border: 1px solid rgba(255, 214, 140, .75); box-shadow: 0 0 10px rgba(255, 170, 70, .5);
+  will-change: transform, opacity; animation: gh-ripple 6s ease-out infinite;
+}
+@keyframes gh-ripple { 0% { transform: scale(.3); opacity: .95; } 100% { transform: scale(2.6); opacity: 0; } }
+
+/* ---------- golden mist, flowing ---------- */
+.gh-mist { left: -50%; width: 200%; will-change: transform; animation: gh-drift linear infinite; background-repeat: repeat-x; background-size: 50% 100%; pointer-events: none; }
+.gh-mist.high {
+  top: 22%; height: 26%; animation-duration: 190s; opacity: .8;
+  background-image:
+    radial-gradient(ellipse 30% 50% at 20% 55%, rgba(255, 200, 120, .26), transparent 70%),
+    radial-gradient(ellipse 26% 44% at 66% 45%, rgba(255, 224, 170, .2), transparent 70%);
+}
+.gh-mist.low {
+  top: 47%; height: 24%; animation-duration: 130s;
+  background-image:
+    radial-gradient(ellipse 34% 50% at 24% 58%, rgba(255, 190, 100, .36), transparent 70%),
+    radial-gradient(ellipse 28% 46% at 70% 50%, rgba(255, 218, 160, .26), transparent 70%);
+}
+.gh-mist.river {
+  top: 66%; height: 22%; animation-duration: 95s; animation-direction: reverse;
+  background-image:
+    radial-gradient(ellipse 36% 52% at 22% 52%, rgba(255, 196, 110, .46), transparent 70%),
+    radial-gradient(ellipse 30% 46% at 66% 56%, rgba(255, 226, 170, .34), transparent 70%);
+}
+.gh-mist.river.r2 { top: 78%; height: 20%; animation-duration: 140s; animation-direction: normal; opacity: .85; }
+@keyframes gh-drift { to { transform: translate3d(50%, 0, 0); } }
+
+/* golden fog over everything */
+.gh-fog { left: -50%; width: 200%; will-change: transform; animation: gh-drift linear infinite; background-repeat: repeat-x; background-size: 50% 100%; }
+.gh-fog.a { bottom: 0; height: 36%; animation-duration: 160s; animation-direction: reverse;
+  background-image: radial-gradient(ellipse 34% 55% at 30% 70%, rgba(255, 180, 80, .22), transparent 70%), radial-gradient(ellipse 30% 50% at 76% 60%, rgba(255, 210, 140, .16), transparent 70%); }
+.gh-fog.b { top: 0; height: 30%; animation-duration: 220s;
+  background-image: radial-gradient(ellipse 32% 55% at 26% 40%, rgba(255, 170, 80, .1), transparent 70%), radial-gradient(ellipse 28% 50% at 72% 50%, rgba(255, 200, 130, .08), transparent 70%); }
+
+/* soft dimming so page text stays crisp over the bright lamps */
+.gh-dim { inset: 0; background: linear-gradient(180deg, rgba(10, 5, 0, .3), rgba(10, 5, 0, .08) 40%, rgba(10, 5, 0, .42)); }
+
+/* ---------- GREEN cursor light (Golden Mist only) ---------- */
+.realm.realm-mist .r-cursor {
+  background: radial-gradient(closest-side, rgba(110, 255, 160, .24), rgba(60, 200, 120, .09) 55%, transparent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .realm.realm-mist .glass {
+    background:
+      radial-gradient(360px circle at var(--px, 50%) var(--py, 0%), color-mix(in oklab, #6dff9e calc(var(--r-hl) * 16%), transparent), transparent 62%),
+      linear-gradient(165deg, color-mix(in oklab, var(--r-fg) 7%, transparent), transparent 42%),
+      var(--r-surface);
+  }
+  .realm.realm-mist .glass:hover { border-color: color-mix(in oklab, #6dff9e 50%, transparent); }
+}
+
+/* ---------- lite mode: phones and reduced motion ---------- */
+@media (max-width: 720px), (hover: none), (pointer: coarse) {
+  .gh-back { display: none; }
+  .gh-bloom, .gh-streak, .gh-boatglow, .gh-dot.win, .gh-fog { animation: none; will-change: auto; }
+  .gh-fog.b, .gh-mist.high, .gh-dot.spk:nth-child(n+16), .gh-dot.lan:nth-child(n+7), .gh-dot.diya:nth-child(n+19) { display: none; }
+  .gh-mist { animation-duration: 240s; }
+  .gh-dot.diya, .gh-dot.lan, .gh-dot.spk { box-shadow: none; }
+  .gh-ripple:nth-of-type(n+2) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gh-bloom, .gh-dot, .gh-streak, .gh-boatglow, .gh-ripple, .gh-mist, .gh-fog { animation: none; }
+}

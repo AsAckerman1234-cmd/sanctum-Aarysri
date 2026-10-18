@@ -7,7 +7,7 @@ pages keep the cleaner classic layout.
 ## Two atmospheres
 - **Golden Water — amphitheater / ghat system.** Sacred amphitheater tiers, classical temple shikharas and
   pillars, calm reflecting water, drifting ceremonial ribbons, floating lotus pads and sacred-geometry rings.
-- **Golden Mist — sunset ghat system.** A warm, high-definition dusk over terraced stepped ghats, glowing mist
+- "Golden Dawn — a ghat awake before sunrise: fireworks, diyas, lanterns, birds, shimmering river." A warm, high-definition dusk over terraced stepped ghats, glowing mist
   curtains and atmospheric temple silhouettes.
 
 ## Immersive transitions and UX
